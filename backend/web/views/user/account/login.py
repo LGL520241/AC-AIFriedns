@@ -16,13 +16,13 @@ class LoginView(APIView):
                 return Response({
                     'result': '用户名和密码不能为空',
                 })
-            user = authenticate(uesrname=username,password=password)
+            user = authenticate(username=username, password=password)
             if user: #用户名正确
-                user_profile = UserProfile.objects.get(username=username)
+                user_profile = UserProfile.objects.get(user=user)
                 refresh = RefreshToken.for_user(user)  # 生成jwt
                 response = Response({
                     'result': 'success',
-                    'accesss': str(refresh.access_token),
+                    'access': str(refresh.access_token),
                     'user_id': user.id,
                     'username': user.username,
                     'photo':user_profile.photo.url,  # 必须加上url！！！！
@@ -41,6 +41,8 @@ class LoginView(APIView):
                 'result': '用户名或密码错误',
             })
         except:
+            # import traceback
+            # print(traceback.format_exc())
             return Response({
                 'result': '系统异常，请稍后再试',
             })

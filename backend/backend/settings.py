@@ -148,13 +148,19 @@ SIMPLE_JWT = {
 }
 
 # 配置跨域
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:5173',
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 # Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-confiMguration
 
 MAILERS = {
     'default': {
