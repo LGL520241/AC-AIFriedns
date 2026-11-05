@@ -2,7 +2,7 @@
 
 import {ref} from "vue";
 import api from "@/js/http/api.ts";
-import {useUserStore} from "@/stores/user.ts";
+import {useUserStore} from "@/store/user.ts";
 import {useRouter} from "vue-router";
 
 const username = ref('')
@@ -23,7 +23,7 @@ async function handleRegister(){
     errorMessage.value = '两次密码输入不一致'
   }else {
     try{
-        const res = await api.post('/api/user/account/register',{
+        const res = await api.post('/api/user/account/register/',{
           username: username.value,
           password: password.value,
         })

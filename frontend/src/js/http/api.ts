@@ -9,7 +9,7 @@
 */
 
 import axios from "axios"
-import {useUserStore} from "@/stores/user.js";
+import {useUserStore} from "@/store/user.js";
 
 const BASE_URL = 'http://127.0.0.1:8000'
 
@@ -26,19 +26,21 @@ api.interceptors.request.use(config => {
     return config
 })
 
-let isRefreshing = false
-let refreshSubscribers = []
+type RefreshSubscriber = (token: string | null, error?: unknown) => void
 
-function subscribeTokenRefresh(callback) {
+let isRefreshing = false
+let refreshSubscribers: RefreshSubscriber[] = []
+
+function subscribeTokenRefresh(callback: RefreshSubscriber) {
     refreshSubscribers.push(callback)
 }
 
-function onRefreshed(token) {
+function onRefreshed(token: string) {
     refreshSubscribers.forEach(cb => cb(token))
     refreshSubscribers = []
 }
 
-function onRefreshFailed(err) {
+function onRefreshFailed(err: unknown) {
     refreshSubscribers.forEach(cb => cb(null, err))
     refreshSubscribers = []
 }

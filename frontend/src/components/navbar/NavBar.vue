@@ -5,7 +5,7 @@ import Homepageicon from "@/components/navbar/icons/Homepageicon.vue";
 import Friendicon from "@/components/navbar/icons/Friendicon.vue";
 import Createicon from "@/components/navbar/icons/Createicon.vue";
 import Searchicon from "@/components/navbar/icons/Searchicon.vue";
-import {useUserStore} from "@/stores/user.ts";
+import {useUserStore} from "@/store/user.ts";
 import UserMenu from "@/components/navbar/UserMenu.vue";
 
 const user = useUserStore()
@@ -38,10 +38,10 @@ const user = useUserStore()
             <Createicon />
             创作
           </RouterLink>
-          <RouterLink v-if="!user.isLogin()" :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-gost text-lg">
+          <RouterLink v-if="user.hasPulledUserInfo && !user.isLogin()" :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-gost text-lg">
             登录
           </RouterLink>
-          <UserMenu v-else />
+          <UserMenu v-else-if="user.isLogin()" />
         </div>
 
       </nav>

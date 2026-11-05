@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useUserStore} from "@/stores/user.ts";
+import {useUserStore} from "@/store/user.ts";
 import UserSpaceicon from "@/components/navbar/icons/UserSpaceicon.vue";
 import UserProfileicon from "@/components/navbar/icons/UserProfileicon.vue";
 import {warn} from "vue";
@@ -16,7 +16,7 @@ function closeMenu() {
 
 async function handleLout() {
   try{
-    const res = await api.post('api/user/account/logout')
+    const res = await api.post('api/user/account/logout/')
     if (res.data.result === 'success') {
       user.logout()
       await router.push({

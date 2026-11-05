@@ -7,16 +7,17 @@ export const useUserStore = defineStore('user',()=>{
     const photo = ref('')
     const profile = ref('')
     const accessToken = ref('')
+    const hasPulledUserInfo = ref(false)
 
     function isLogin(){
         return !!accessToken.value  // 必须带value!!!!!!
     }
 
-    function setAccessToken(token){
+    function setAccessToken(token: string){
         accessToken.value =token
     }
 
-    function setUserInfo(data){
+    function setUserInfo(data: { user_id: number; username: string; photo: string; profile: string }){
         id.value = data.user_id
         username.value = data.username
         photo.value = data.photo
@@ -31,6 +32,10 @@ export const useUserStore = defineStore('user',()=>{
         accessToken.value = ''
     }
 
+    function setHasPulledUserInfo(newStatus: boolean){
+        hasPulledUserInfo.value = newStatus
+    }
+
     return {
         id,
         username,
@@ -41,6 +46,8 @@ export const useUserStore = defineStore('user',()=>{
         setAccessToken,
         setUserInfo,
         logout,
+        hasPulledUserInfo,
+        setHasPulledUserInfo
     }
 
 

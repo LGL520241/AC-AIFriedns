@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import api from "@/js/http/api.ts";
-import {useUserStore} from "@/stores/user.ts";
+import {useUserStore} from "@/store/user.ts";
 import {useRoute, useRouter} from "vue-router";
 
 const username = ref('')
@@ -19,7 +19,7 @@ async function handleLogin(){
     errorMessage.value = '密码不能为空'
   }else{
     try{
-      const res = await api.post('/api/user/account/longin', {
+      const res = await api.post('/api/user/account/longin/', {
         username: username.value,
         password: password.value,
       })
